@@ -34,3 +34,46 @@ eighthElement.addEventListener("click", () => {
         isEighthElementClicked = true;
     }
 });
+
+const addButton = document.getElementById("addButton");
+const zoomInButton = document.getElementById("zoomInButton");
+const zoomOutButton = document.getElementById("zoomOutButton");
+const deleteButton = document.getElementById("deleteButton");
+const imageContainer = document.getElementById("images");
+const imageElement = imageContainer.querySelector(".image");
+const image = imageContainer.querySelector("img");
+
+const updateAddButtonStyle = () => {
+    if (imageContainer.contains(imageElement)) {
+        addButton.disabled = true; 
+    } else {
+        addButton.disabled = false; 
+    }
+};
+
+updateAddButtonStyle();
+
+addButton.addEventListener("click", () => {
+    if (!imageContainer.contains(imageElement)) {
+        image.style.width = "auto";
+        imageContainer.appendChild(imageElement);
+        updateAddButtonStyle(); 
+    }
+});
+
+zoomInButton.addEventListener("click", () => {
+    const currentWidth = image.clientWidth;
+    image.style.width = currentWidth + 100 + "px";
+});
+
+zoomOutButton.addEventListener("click", () => {
+    const currentWidth = image.clientWidth;
+    image.style.width = currentWidth - 100 + "px";
+});
+
+deleteButton.addEventListener("click", () => {
+    if (imageContainer.contains(imageElement)) {
+        imageElement.remove();
+        updateAddButtonStyle();
+    }
+});
